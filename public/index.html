@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<title>DJ Crolard</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<h2>DJ Crolard</h2>
+
+			<div class="input-group">
+				<input
+					type="text"
+					id="url-input"
+					placeholder="YouTube Link (watch?v=...)"
+				/>
+				<button class="btn-action" onclick="sendUrl()">Add</button>
+			</div>
+
+			<button id="btn-sync" onclick="forceSync()">🔊 SYNCRHONIZE</button>
+
+			<div id="player-wrapper">
+				<div id="player"></div>
+			</div>
+
+			<button class="btn-action" onclick="askClearQueue()">Clear</button>
+			<button class="btn-action" onclick="askNextVideo()">Next</button>
+
+			<div class="queue-section">
+				<strong>Queue:</strong>
+				<ul id="playlist-view"></ul>
+			</div>
+		</div>
+
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="https://www.youtube.com/iframe_api"></script>
+		<script src="client.js"></script>
+	</body>
+</html>
