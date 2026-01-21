@@ -8,29 +8,42 @@
 	</head>
 	<body>
 		<div class="container">
-			<h2>DJ Crolard</h2>
-
-			<div class="input-group">
-				<input
-					type="text"
-					id="url-input"
-					placeholder="YouTube Link (watch?v=...)"
-				/>
-				<button class="btn-action" onclick="sendUrl()">Add</button>
+			<!-- Left: Library of presets -->
+			<div class="left-sidebar">
+				<h3>Library</h3>
+				<div class="library-section">
+					<ul id="library-view"></ul>
+				</div>
 			</div>
 
-			<button id="btn-sync" onclick="forceSync()">🔊 SYNCRHONIZE</button>
+			<!-- Right: main player and queue -->
+			<div class="main-area">
+				<h2>DJ Crolard</h2>
 
-			<div id="player-wrapper">
-				<div id="player"></div>
-			</div>
+				<div class="input-group">
+					<input
+						type="text"
+						id="url-input"
+						placeholder="YouTube Link (watch?v=...)"
+					/>
+					<button class="btn-action" onclick="sendUrl()">Add</button>
+				</div>
 
-			<button class="btn-action" onclick="askClearQueue()">Clear</button>
-			<button class="btn-action" onclick="askNextVideo()">Next</button>
+				<button id="btn-sync" onclick="forceSync()">🔊 SYNCRHONIZE</button>
 
-			<div class="queue-section">
-				<strong>Queue:</strong>
-				<ul id="playlist-view"></ul>
+				<div id="player-wrapper">
+					<div id="player"></div>
+				</div>
+
+				<div class="player-controls">
+					<button class="btn-action" onclick="askClearQueue()">Clear</button>
+					<button class="btn-action" onclick="askNextVideo()">Next</button>
+				</div>
+
+				<div class="queue-section">
+					<strong>Queue:</strong>
+					<ul id="playlist-view"></ul>
+				</div>
 			</div>
 		</div>
 

@@ -10,6 +10,86 @@ body {
 .container {
 	max-width: 700px;
 	width: 100%;
+	margin: 0 auto; /* center container on page */
+	position: relative; /* allow absolute positioning of the library inside */
+	padding-right: 260px; /* reserve space for the right library */
+}
+
+/* Put library on the right */
+.left-sidebar {
+	position: absolute;
+	right: 0;
+	top: 0;
+	flex: 0 0 240px;
+	width: 240px;
+	order: 2;
+}
+.left-sidebar h3 {
+	color: #ff0000;
+	margin: 0 0 10px 0;
+	text-align: left;
+}
+.library-section {
+	background: #1e1e1e;
+	padding: 12px;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+	max-height: 60vh;
+	overflow: auto;
+}
+#library-view {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+#library-view li {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px 6px;
+	border-bottom: 1px solid #333;
+	font-size: 0.95em;
+}
+.add-btn {
+	background: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	padding: 6px 8px;
+	cursor: pointer;
+	font-weight: bold;
+}
+.add-btn:hover {
+	background: #0062cc;
+	transform: none;
+}
+
+/* Main area should take remaining space and center content */
+.main-area {
+	/* not a flex container that would offset centering; children will be centered with margin */
+	order: 1;
+	display: block;
+}
+
+/* Center key main children and constrain their width so the player stays centered */
+.main-area .input-group,
+.main-area #player-wrapper,
+.main-area .queue-section {
+	width: 100%;
+	max-width: 640px;
+	margin: 0 auto; /* center these blocks inside the container */
+}
+
+#player-wrapper {
+	background: #000;
+	border-radius: 10px;
+	overflow: hidden;
+	margin-bottom: 20px;
+	aspect-ratio: 16/9;
+	width: 100%;
+	max-width: 640px;
+	margin-left: auto;
+	margin-right: auto;
 }
 h2 {
 	color: #ff0000;
@@ -55,7 +135,7 @@ button {
 	width: 100%;
 	background: #28a745;
 	color: white;
-	margin-bottom: 15px;
+	margin: 10px 0 20px 0; /* add vertical spacing around the green button */
 	display: none;
 	padding: 15px;
 	font-size: 1em;
@@ -65,14 +145,6 @@ button {
 }
 
 /* Player & Queue */
-#player-wrapper {
-	background: #000;
-	border-radius: 10px;
-	overflow: hidden;
-	margin-bottom: 20px;
-	aspect-ratio: 16/9;
-	width: 100%;
-}
 .queue-section {
 	background: #1e1e1e;
 	padding: 20px;
@@ -125,7 +197,7 @@ ul {
 	width: 28px;
 	height: 28px;
 	font-weight: bold;
-	line-weight: 1;
+	line-height: 1;
 }
 
 #playlist-view li:hover .delete-btn {
@@ -137,4 +209,16 @@ ul {
 .sortable-ghost {
 	opacity: 0.2;
 	background: #444 !important;
+}
+
+.player-controls {
+	display: flex;
+	justify-content: center; /* center the buttons */
+	gap: 12px; /* space between buttons */
+	margin-bottom: 12px;
+}
+
+.player-controls .btn-action {
+	padding: 10px 18px;
+	border-radius: 6px;
 }

@@ -5,6 +5,30 @@ let currentVideoStartTime = null;
 let sortableInstance = null;
 let localQueue = [];
 
+// Preset library (id and title)
+const presetLibrary = [
+  { id: "xHQod1tMYJE", title: "Test" },
+];
+
+function renderLibrary() {
+  const lib = document.getElementById("library-view");
+  if (!lib) return;
+  lib.innerHTML = presetLibrary
+    .map(
+      (item) => `
+        <li>
+          <div class="item-content">${item.title}</div>
+          <button class="add-btn" onclick="addPreset('${item.id}')">Add</button>
+        </li>
+      `,
+    )
+    .join("");
+}
+
+function addPreset(id) {
+  socket.emit("add_to_queue", id);
+}
+
 // Initialisation API YouTube
 function onYouTubeIframeAPIReady() {
   player = new YT.Player("player", {
@@ -14,6 +38,7 @@ function onYouTubeIframeAPIReady() {
     events: {
       onReady: () => {
         document.getElementById("btn-sync").style.display = "block";
+        renderLibrary();
       },
       onStateChange: (e) => {
         if (e.data === YT.PlayerState.PAUSED)
@@ -72,7 +97,7 @@ function initSortable() {
   const el = document.getElementById("playlist-view");
   if (sortableInstance) sortableInstance.destroy();
 
-  sortableInstacne = new Sortable(el, {
+  sortableInstance = new Sortable(el, {
     animation: 150,
     ghostClass: "sortable-ghost",
     onEnd: function () {
