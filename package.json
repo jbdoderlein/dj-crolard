@@ -1,7 +1,27 @@
 {
+  "name": "dj-crolard",
+  "version": "1.0.0",
+  "description": "Simple DJ app using Express, Socket.io and ytdl-core",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Marsupilami1/dj-crolard"
+  },
+  "author": "Marsupilami1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Marsupilami1/dj-crolard/issues"
+  },
+  "homepage": "https://github.com/Marsupilami1/dj-crolard#readme",
   "dependencies": {
     "express": "^5.2.1",
     "socket.io": "^4.8.3",
     "ytdl-core": "^4.11.5"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
