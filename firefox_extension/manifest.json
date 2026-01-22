@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "DJ Crolard LoL Extension",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches": ["*://localhost/*"], 
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": [
+    "https://searchfox.org/",
+    "https://127.0.0.1:2999/*",
+    "https://127.0.0.1:2999/",
+    "https://127.0.0.1/*",
+    "https://127.0.0.1/",
+    "https://localhost:2999/*",
+    "https://localhost:2999/",
+    "https://localhost/*",
+    "https://localhost/"
+  ]
+}
