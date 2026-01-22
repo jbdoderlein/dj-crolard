@@ -5,6 +5,19 @@ let currentVideoStartTime = null;
 let sortableInstance = null;
 let localQueue = [];
 
+window.addEventListener("message", (event) => {
+  if(event.data && event.data.source === "dj-crolard-extension") {
+    // Relay the extension event to the server so every connected client
+    // can react (play the sound). Only the browser with the extension
+    // active will emit this message to the server.
+    socket.emit('extension_event', event.data.payload);
+
+    // Optionally play locally immediately so the sender also hears it
+    // (uncomment if desired):
+    // playSoundForEvent(event.data.payload);
+  }
+});
+
 // Preset library (id and title)
 const presetLibrary = [
   { id: "xHQod1tMYJE", title: "Test" },
@@ -137,3 +150,54 @@ function askClearQueue() {
 function askDelete(videoId, index) {
   socket.emit("delete", videoId, index);
 }
+
+// Play audio helpers and handler for relayed extension events
+function playSound(src) {
+  try {
+    const audio = new Audio(src);
+    // Read slider value directly from DOM and use it (0-100 -> 0.0-1.0)
+    const slider = document.getElementById('event-volume');
+    const raw = slider ? Number(slider.value) : NaN;
+    const vol = Number.isFinite(raw) ? Math.max(0, Math.min(1, raw / 100)) : 0.9;
+    audio.volume = vol;
+    audio.play().catch(err => console.warn('Audio play failed:', err));
+  } catch (e) {
+    console.warn('Could not play sound:', e);
+  }
+}
+
+function playSoundForEvent(ev) {
+  console.log('Received event for sound playback:', ev);
+  if (!ev || !ev.EventName) return;
+
+  if (ev.EventName === 'ChampionKill') {
+    if (ev.KillerName) {
+      switch (ev.KillerName) {
+        case 'YEP jbdod':
+          // sound when YEP jbdod gets a kill
+          playSound('/sounds/aaahhh.ogg');
+          return;
+        // add more killer-specific cases here
+        default:
+          break;
+      }
+    }
+
+    if (ev.VictimName) {
+      switch (ev.VictimName) {
+        case 'YEP jbdod':
+          // sound when YEP jbdod dies
+          playSound('/sounds/abssysalementnulla.mp3');
+          return;
+        // add more victim-specific cases here
+        default:
+          break;
+      }
+    }
+  }
+}
+
+// When the server relays an extension event, play the mapped sound
+socket.on('extension_event', (payload) => {
+  playSoundForEvent(payload);
+});

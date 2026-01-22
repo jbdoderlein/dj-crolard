@@ -67,6 +67,13 @@ io.on("connection", (socket) => {
     state.queue = newQueue;
     io.emit("update_queue", state.queue);
   });
+
+  // Relay events coming from a client-side extension to all connected clients.
+  // The extension running in a single browser will emit 'extension_event' and
+  // the server broadcasts it so every client in the room can react (play sound).
+  socket.on('extension_event', (payload) => {
+    io.emit('extension_event', payload);
+  });
 });
 
 async function playVideo(videoItem) {
